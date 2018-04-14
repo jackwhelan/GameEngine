@@ -49,7 +49,7 @@ public class Control extends JFrame implements Runnable
 		sheet = new SpriteSheet(sheetImage);
 		sheet.loadSprites(16, 16);
 		
-		tiles = new Tiles(new File("Tiles.txt"), sheet);
+		tiles = new Tiles(new File("src/Tiles.txt"), sheet);
 		
 		//testImage = loadImage("GrassTile.png");
 		//testSprite = sheet.getSprite(4, 1);
