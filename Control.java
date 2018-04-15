@@ -25,6 +25,8 @@ public class Control extends JFrame implements Runnable
 	private Tiles tiles;
 	private Map map;
 	private GameObject[] para;
+	private KeyBoardListener KeyListener = new KeyBoardListener();
+	private Player player;
 	
 	public Control()
 	{
@@ -63,7 +65,13 @@ public class Control extends JFrame implements Runnable
 		testRectangle.generateGraphics(3, 12234);
 		
 		// Load objects
-		para = new GameObject[0];
+		para = new GameObject[1];
+		player = new Player();
+		para[0] = player;
+		
+		// Add Listeners
+		canvas.addKeyListener(KeyListener);
+		canvas.addFocusListener(KeyListener);
 	}
 	
 	public void update()
@@ -139,6 +147,11 @@ public class Control extends JFrame implements Runnable
 			lastTime = now;
 		}
 		
+	}
+	
+	public KeyBoardListener getKeyListener()
+	{
+		return KeyListener;
 	}
 	
 	public static void main(String[] args)
