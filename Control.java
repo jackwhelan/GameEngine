@@ -24,6 +24,7 @@ public class Control extends JFrame implements Runnable
 	private Rectangle testRectangle = new Rectangle(30,30,100,100);
 	private Tiles tiles;
 	private Map map;
+	private GameObject[] para;
 	
 	public Control()
 	{
@@ -60,11 +61,17 @@ public class Control extends JFrame implements Runnable
 		//testSprite = sheet.getSprite(4, 1);
 		
 		testRectangle.generateGraphics(3, 12234);
+		
+		// Load objects
+		para = new GameObject[0];
 	}
 	
 	public void update()
 	{
-		
+		for(int i = 0; i < para.length; i++)
+		{
+			para[i].update(this);
+		}
 	}
 	
 	private BufferedImage loadImage(String path)
@@ -89,11 +96,14 @@ public class Control extends JFrame implements Runnable
 		Graphics g = bufferStrategy.getDrawGraphics();
 		super.paint(g);
 		
-		//renderHandler.renderImage(testImage, 0, 0, 5, 5);
-		//renderHandler.renderSprite(testSprite, 0, 0, 5, 5);
-		//tiles.renderTile(1, renderHandler, 0, 0, 3, 3);
 		map.render(renderHandler, 3, 3);
-		renderHandler.renderRectangle(testRectangle, 1, 1);
+		//renderHandler.renderRectangle(testRectangle, 1, 1);
+		
+		for(int i = 0; i < para.length; i++)
+		{
+			para[i].render(renderHandler, 3, 3);
+		}
+		
 		renderHandler.render(g);
 		
 		g.dispose();
