@@ -68,4 +68,9 @@ public class RenderHandler
 			}
 		}
 	}
+	
+	public Rectangle getCamera()
+	{
+		return camera;
+	}
 }

@@ -23,6 +23,7 @@ public class Control extends JFrame implements Runnable
 	private SpriteSheet sheet;
 	private Rectangle testRectangle = new Rectangle(30,30,100,100);
 	private Tiles tiles;
+	private Map map;
 	
 	public Control()
 	{
@@ -49,7 +50,11 @@ public class Control extends JFrame implements Runnable
 		sheet = new SpriteSheet(sheetImage);
 		sheet.loadSprites(16, 16);
 		
+		// Load tiles
 		tiles = new Tiles(new File("src/Tiles.txt"), sheet);
+		
+		// Load map
+		map = new Map(new File("src/Map.txt"), tiles);
 		
 		//testImage = loadImage("GrassTile.png");
 		//testSprite = sheet.getSprite(4, 1);
@@ -71,9 +76,9 @@ public class Control extends JFrame implements Runnable
 			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
 			return(formattedImage);
 		}
-		catch(IOException exception)
+		catch(IOException exc)
 		{
-			exception.printStackTrace();
+			exc.printStackTrace();
 			return(null); 
 		}
 	}
@@ -86,7 +91,8 @@ public class Control extends JFrame implements Runnable
 		
 		//renderHandler.renderImage(testImage, 0, 0, 5, 5);
 		//renderHandler.renderSprite(testSprite, 0, 0, 5, 5);
-		tiles.renderTile(1, renderHandler, 0, 0, 3, 3);
+		//tiles.renderTile(1, renderHandler, 0, 0, 3, 3);
+		map.render(renderHandler, 3, 3);
 		renderHandler.renderRectangle(testRectangle, 1, 1);
 		renderHandler.render(g);
 		
