@@ -21,7 +21,6 @@ public class Control extends JFrame implements Runnable
 	private BufferedImage testImage;
 	private Sprite testSprite;
 	private SpriteSheet sheet;
-	private Rectangle testRectangle = new Rectangle(30,30,100,100);
 	private Tiles tiles;
 	private Map map;
 	private GameObject[] para;
@@ -59,11 +58,6 @@ public class Control extends JFrame implements Runnable
 		// Load map
 		map = new Map(new File("src/Map.txt"), tiles);
 		
-		//testImage = loadImage("GrassTile.png");
-		//testSprite = sheet.getSprite(4, 1);
-		
-		testRectangle.generateGraphics(3, 12234);
-		
 		// Load objects
 		para = new GameObject[1];
 		player = new Player();
@@ -98,60 +92,58 @@ public class Control extends JFrame implements Runnable
 		}
 	}
 	
-	public void render()
+	public void render() 
 	{
-		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-		Graphics g = bufferStrategy.getDrawGraphics();
-		super.paint(g);
-		
-		map.render(renderHandler, 3, 3);
-		//renderHandler.renderRectangle(testRectangle, 1, 1);
-		
-		for(int i = 0; i < para.length; i++)
-		{
-			para[i].render(renderHandler, 3, 3);
-		}
-		
-		renderHandler.render(g);
-		
-		g.dispose();
-		bufferStrategy.show();
+			BufferStrategy bufferStrategy = canvas.getBufferStrategy();
+			Graphics graphics = bufferStrategy.getDrawGraphics();
+			super.paint(graphics);
+
+			map.render(renderHandler, 3, 3);
+
+			for(int i = 0; i < para.length; i++) 
+				para[i].render(renderHandler, 3, 3);
+
+			renderHandler.render(graphics);
+
+			graphics.dispose();
+			bufferStrategy.show();
+			renderHandler.clrscr();
 	}
-	
-	
-	
-	public void run()
+
+	public void run() 
 	{
 		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-		
 		int i = 0;
 		int x = 0;
-		
-		long lastTime = System.nanoTime();
-		double nanoSecondConversion = 1000000000.0 / 60; // 60 = fps
+
+		long lastTime = System.nanoTime(); //long 2^63
+		double nanoSecondConversion = 1000000000.0 / 60; //60 frames per second
 		double changeInSeconds = 0;
-		
-		while(true)
+
+		while(true) 
 		{
 			long now = System.nanoTime();
-			
+
 			changeInSeconds += (now - lastTime) / nanoSecondConversion;
-			
-			while(changeInSeconds >= 1)
-			{
+			while(changeInSeconds >= 1) {
 				update();
-				changeInSeconds = 0;
+				changeInSeconds--;
 			}
-			
+
 			render();
 			lastTime = now;
 		}
-		
+
 	}
 	
 	public KeyBoardListener getKeyListener()
 	{
 		return KeyListener;
+	}
+	
+	public RenderHandler getRendHand()
+	{
+		return renderHandler;
 	}
 	
 	public static void main(String[] args)

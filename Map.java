@@ -53,17 +53,18 @@ public class Map
 	
 	public void render(RenderHandler r, int xZoom, int yZoom)
 	{
-		int xInc = 16 * xZoom;
-		int yInc = 16 * yZoom;
+		int tileWidth = 16 * xZoom;
+		int tileHeight = 16 * yZoom;
 		
 		if(defaultTile >= 0)
 		{
-			Rectangle camera = r.getCamera();
-			for (int y = 0; y < camera.w; y++)
+			Rectangle camera = r.getCamPos();
+			
+			for(int x = 0; x < camera.w; x = x + tileWidth)
 			{
-				for (int x = 0; x < camera.h; x++)
+				for(int y = 0; y < camera.h; y = y + tileHeight)
 				{
-					
+					allTiles.renderTile(defaultTile, r, x, y, xZoom, yZoom);
 				}
 			}
 		}
@@ -71,7 +72,7 @@ public class Map
 		for(int i = 0; i < mappedTiles.size(); i++)
 		{
 			MappedTile mTile = mappedTiles.get(i);
-			allTiles.renderTile(mTile.id, r, mTile.x * xInc, mTile.y * yInc, xZoom, yZoom);
+			allTiles.renderTile(mTile.id, r, mTile.x * tileWidth, mTile.y * tileHeight, xZoom, yZoom);
 		}
 	}
 	

@@ -3,7 +3,7 @@ package main;
 public class Player implements GameObject
 {
 	Rectangle playTangle;
-	int speed = 1;
+	int speed = 10;
 	
 	public Player()
 	{
@@ -31,5 +31,13 @@ public class Player implements GameObject
 		if(keyListener.right())
 			playTangle.x = playTangle.x + speed;
 		
+		focusPlayer(game.getRendHand().getCamPos());
+	}
+	
+	// Updates the camera Rectangle to focus on the player.
+	public void focusPlayer(Rectangle camera)
+	{
+		camera.x = playTangle.x - (camera.w / 2);
+		camera.y = playTangle.y - (camera.h / 2);
 	}
 }
