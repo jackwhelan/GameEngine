@@ -27,6 +27,8 @@ public class Control extends JFrame implements Runnable
 	private KeyBoardListener KeyListener = new KeyBoardListener();
 	private MouseEventListener mouseListener = new MouseEventListener(this);
 	private Player player;
+	private int xZoom = 3;
+	private int yZoom = 3;
 	
 	public Control()
 	{
@@ -43,6 +45,9 @@ public class Control extends JFrame implements Runnable
 		
 		// Makes frame visible.
 		setVisible(true);
+		
+		// Don't allow resizing
+		setResizable(false);
 		
 		canvas.createBufferStrategy(3);
 		
@@ -95,16 +100,23 @@ public class Control extends JFrame implements Runnable
 		}
 	}
 	
+	public void mouseDown(int x, int y)
+	{
+		x = (int) Math.floor((x + renderHandler.getCamPos().x)/(16.0 * xZoom));
+		y = (int) Math.floor((y + renderHandler.getCamPos().y)/(16.0 * yZoom));
+		map.setTile(x, y, 2);
+	}
+	
 	public void render() 
 	{
 			BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 			Graphics graphics = bufferStrategy.getDrawGraphics();
 			super.paint(graphics);
 
-			map.render(renderHandler, 3, 3);
+			map.render(renderHandler, xZoom, yZoom);
 
 			for(int i = 0; i < para.length; i++) 
-				para[i].render(renderHandler, 3, 3);
+				para[i].render(renderHandler, xZoom, yZoom);
 
 			renderHandler.render(graphics);
 

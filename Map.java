@@ -76,6 +76,27 @@ public class Map
 		}
 	}
 	
+	public void setTile(int tileXPos, int tileYPos, int id)
+	{
+		boolean exists = false;
+		
+		for (int i = 0; i < mappedTiles.size(); i++)
+		{
+			MappedTile mTile = mappedTiles.get(i);
+			if(mTile.x == tileXPos && mTile.y == tileYPos)
+			{
+				mTile.id = id;
+				exists = true;
+				break; // Breaks out of for loop as tile is found.
+			}
+			
+			if(!exists)
+			{
+				mappedTiles.add(new MappedTile(id, tileXPos, tileYPos));
+			}
+		}
+	}
+	
 	class MappedTile
 	{
 		public int id, x, y;
