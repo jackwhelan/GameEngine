@@ -10,7 +10,7 @@ public class MouseEventListener implements MouseListener, MouseMotionListener
 
 	public MouseEventListener(Control instance)
 	{
-		
+		this.instance = instance;
 	}
 	
 	public void mouseDragged(MouseEvent e)
@@ -35,16 +35,19 @@ public class MouseEventListener implements MouseListener, MouseMotionListener
 
 	public void mouseExited(MouseEvent e)
 	{
-	
+		
 	}
 
 	public void mousePressed(MouseEvent e)
 	{
-
+		if(e.getButton() == MouseEvent.BUTTON1)
+		{
+			instance.mouseDown(e.getX(), e.getY());
+		}
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
-	
+		
 	}
 }

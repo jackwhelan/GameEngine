@@ -8,6 +8,12 @@ import java.awt.event.FocusEvent;
 public class KeyBoardListener implements KeyListener, FocusListener
 {
 	public boolean[] valKeys = new boolean[150];
+	private Control game;
+	
+	public KeyBoardListener(Control game)
+	{
+		this.game = game;
+	}
 	
 	// Need to add these even if unused.
 	public void keyTyped(KeyEvent e){}
@@ -30,6 +36,9 @@ public class KeyBoardListener implements KeyListener, FocusListener
 		{
 			valKeys[keyCode] = true;
 		}
+		
+		if(valKeys[KeyEvent.VK_CONTROL])
+			game.handleCTRL(valKeys);
 	}
 
 	// When a key is released set the (keyCode) index of (valKeys) to false

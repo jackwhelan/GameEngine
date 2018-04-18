@@ -3,6 +3,7 @@ package main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,7 +25,7 @@ public class Control extends JFrame implements Runnable
 	private Tiles tiles;
 	private Map map;
 	private GameObject[] para;
-	private KeyBoardListener KeyListener = new KeyBoardListener();
+	private KeyBoardListener KeyListener = new KeyBoardListener(this);
 	private MouseEventListener mouseListener = new MouseEventListener(this);
 	private Player player;
 	private int xZoom = 3;
@@ -149,6 +150,13 @@ public class Control extends JFrame implements Runnable
 			lastTime = now;
 		}
 
+	}
+	
+	public void handleCTRL(boolean[] keys) 
+	{
+		System.out.println("test");
+		if(keys[KeyEvent.VK_S])
+			map.saveMap();
 	}
 	
 	public KeyBoardListener getKL()

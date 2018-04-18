@@ -20,7 +20,7 @@ public class Player implements GameObject
 	// Call at 60 fps
 	public void update(Control game)
 	{
-		KeyBoardListener keyListener = game.getKeyListener();
+		KeyBoardListener keyListener = game.getKL();
 		
 		if(keyListener.up())
 			playTangle.y = playTangle.y - speed;

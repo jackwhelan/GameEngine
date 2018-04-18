@@ -2,22 +2,26 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map
 {
 	private Tiles allTiles;
-	private int defaultTile = -1;
+	private int defaultTile = 0;
 	private ArrayList<MappedTile> mappedTiles = new ArrayList<MappedTile>();
+	private File mapFile;
 	
-	public Map(File map, Tiles allTiles)
+	public Map(File mapFile, Tiles allTiles)
 	{
 		this.allTiles = allTiles;
+		this.mapFile = mapFile;
 		
 		try
 		{
-			Scanner sc = new Scanner(map);
+			Scanner sc = new Scanner(mapFile);
 			while(sc.hasNextLine()) 
 			{
 				String line = sc.nextLine();
@@ -33,7 +37,7 @@ public class Map
 						}
 					}
 					
-					String[] splitStr = line.split("-");
+					String[] splitStr = line.split(",");
 					if(splitStr.length >= 3)
 					{
 						MappedTile mTile = new MappedTile(Integer.parseInt(splitStr[0]),
@@ -94,6 +98,31 @@ public class Map
 			{
 				mappedTiles.add(new MappedTile(id, tileXPos, tileYPos));
 			}
+		}
+	}
+	
+	public void saveMap()
+	{
+		try
+		{
+//			if(mapFile.exists())
+//			{
+//				mapFile.delete();
+//			}
+			
+			File test = new File("src/test.txt");
+			test.createNewFile();
+			
+			PrintWriter printWriter = new PrintWriter(mapFile);
+			
+			if(defaultTile >= 0)
+			{
+				printWriter.println("Fill:" + defaultTile);
+			}
+		}
+		catch(java.io.IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 	
