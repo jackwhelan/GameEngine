@@ -60,9 +60,9 @@ public class Map
 		{
 			Rectangle camera = r.getCamPos();
 			
-			for(int x = 0; x < camera.w; x = x + tileWidth)
+			for(int y = camera.y - tileHeight - (camera.y % tileHeight); y < camera.y + camera.h; y+= tileHeight)
 			{
-				for(int y = 0; y < camera.h; y = y + tileHeight)
+				for(int x = camera.x - tileWidth - (camera.x % tileWidth); x < camera.x + camera.w; x+= tileWidth)
 				{
 					allTiles.renderTile(defaultTile, r, x, y, xZoom, yZoom);
 				}
